@@ -1,3 +1,3 @@
 @Library('jenkins-shared-libraries') _
 
-pipelineTradingTasks(gelo="Gelo")
+pipelineTradingTasks(gelo:"Gelo")

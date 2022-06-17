@@ -1,0 +1,3 @@
+@Library('jenkins-shared-libraries@gelo') _
+
+pipelineTradingTasks()

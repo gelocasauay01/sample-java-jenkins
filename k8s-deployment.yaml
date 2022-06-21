@@ -1,0 +1,42 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sample-java
+  namespace: dev-environment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: sample-java
+  template:
+    metadata:
+      labels:
+        app: sample-java
+    spec:
+      containers:
+        - name: sample-java
+          image: gelocasauay01/sample-java-jenkins:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 8080
+          resources:
+            requests:
+              memory: "64Mi"
+              cpu: "250m"
+            limits:
+              memory: "128Mi"
+              cpu: "500m"
+
+---
+
+apiVersion: v1
+kind: Service
+metadata:
+  name: sample-java-service
+  namespace: dev-environment
+spec:
+  selector:
+    app: sample-java
+  ports:
+  - port: 80
+    targetPort: 8080

@@ -7,12 +7,5 @@ as s as asjkn sa
 ascascascasc
 saascsacascasc xc xcsdcsdcacascsacasc
 asasckasbcasbckasbcjkasbjk
-sdnsdjvsdjkvsdjvkb
-asnsaknaskcjnaskcsacnasnckascjksn
-sanxasncascnasklcascnaskln
-sacacascs
-cndjkndskjcndscnsdcndsn
-sacascasc
-ssdvdsvascascascascascascsa
-sacsacsac
-  sdsdsdvdsv
+ascascasc
+sacascascasc

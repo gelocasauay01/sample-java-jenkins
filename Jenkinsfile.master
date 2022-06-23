@@ -17,8 +17,6 @@ spec:
     command:
     - /bin/cat
     tty: true    
-    volumeMounts:
-      - readOnly: false
   - name: kaniko
     image: gcr.io/kaniko-project/executor:debug
     command:

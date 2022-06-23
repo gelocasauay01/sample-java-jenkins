@@ -10,8 +10,8 @@ metadata:
     iam.amazonaws.com/role: arn:aws:iam::933594548532:role/DevOpsPHIntern
 spec:
   containers:
-  - name: kubectl
-    image: joshendriks/alpine-k8s
+  - name: aws
+    image: amazon/aws-cli
     command:
     - /bin/cat
     tty: true    
@@ -60,12 +60,12 @@ spec:
 
         stage('Deploy App to Kubernetes') {     
             steps {
-                container('kubectl') {
+                container('aws') {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                        echo "$PATH"
-                        sh 'apk update'
-                        sh 'apk add aws-cli'
-                        sh 'kubectl apply -f k8s-deployment.yaml'
+                        sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl'
+                        sh 'chmod +x ./kubectl'
+                        sh 'sudo mv ./kubectl /usr/local/bin/kubectl'
+                        sh 'kubectl version --client'
                     }
                 }
             }

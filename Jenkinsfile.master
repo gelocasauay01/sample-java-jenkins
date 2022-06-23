@@ -6,8 +6,6 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: builder
-  annotations:
-    iam.amazonaws.com/role: arn:aws:iam::933594548532:role/DevOpsPHIntern
 spec:
   containers:
   - name: aws

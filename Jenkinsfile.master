@@ -60,8 +60,6 @@ spec:
             steps {
                 container('aws') {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                        sh "aws configure set aws_access_key_id AKIA5SXUSJE2H344CU2I"
-                        sh "aws configure set aws_secret_access_key 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"
                         sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl'
                         sh 'chmod +x ./kubectl'
                         sh 'mv ./kubectl /usr/local/bin/kubectl'

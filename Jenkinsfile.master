@@ -5,6 +5,8 @@ pipeline {
 apiVersion: v1
 kind: Pod
 metadata:
+  labels:
+    some-label: jobs
   name: builder
   annotations:
     iam.amazonaws.com/role: arn:aws:iam::933594548532:role/DevOpsPHIntern

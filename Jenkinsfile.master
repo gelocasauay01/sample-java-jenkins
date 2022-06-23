@@ -7,6 +7,7 @@ kind: Pod
 metadata:
   name: builder
 spec:
+  serviceAccountName: api-service-account
   containers:
   - name: aws
     image: amazon/aws-cli

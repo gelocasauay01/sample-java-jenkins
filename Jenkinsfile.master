@@ -36,40 +36,39 @@ spec:
 
     stages {
 
-        // stage('Create Jar File') {
-        //     steps {
-        //         withMaven(maven:'maven') {
-        //             sh "mvn clean package"
-        //         }
-        //     }
-        // }
+        stage('Create Jar File') {
+            steps {
+                withMaven(maven:'maven') {
+                    sh "mvn clean package"
+                }
+            }
+        }
 
-        // stage('Kaniko Build and Push Image') {
-        //     steps {
-        //         container('kaniko') {
-        //             script {
-        //                 sh """
-        //                     /kaniko/executor --dockerfile `pwd`/Dockerfile \
-        //                      --context `pwd` \
-        //                      --destination=gelocasauay01/sample-java-jenkins:latest
-        //                 """
-        //             }
-        //         }
-        //     }
-        // }
+        stage('Kaniko Build and Push Image') {
+            steps {
+                container('kaniko') {
+                    script {
+                        sh """
+                            /kaniko/executor --dockerfile `pwd`/Dockerfile \
+                             --context `pwd` \
+                             --destination=gelocasauay01/sample-java-jenkins:latest
+                        """
+                    }
+                }
+            }
+        }
 
         stage('Deploy App to Kubernetes') {     
             steps {
                 container('aws') {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
-                        sh 'aws configure set aws_access_key_id ASIA5SXUSJE2BFI32766'
-                        sh 'aws configure set aws_secret_access_key DGcS4epTXxawUqxD49tOan/vcd0rjmjSja3QF4Ex'
-                        sh 'aws configure set aws_session_token IQoJb3JpZ2luX2VjEFYaCXVzLWVhc3QtMSJIMEYCIQDwFXx7That5Ko4xrvMt2AvRo7yh09n/yZKeClYRijkGgIhAL/BOmFoeuWzadsB4aImUQYfUxNIzvqliDIEvX+I/a9mKpoCCG4QABoMOTMzNTk0NTQ4NTMyIgzWgCALvG3PIt5ethgq9wGdTlRZIvy5rPb+uVpfJn0gQLdtWATIw/Xve/eFEn9ICIecjTaWh6vN54nps2ZEw87jgKkrR8AGbo8TmdctgL2UFPRhJNHq/gKJoxF6pfd5x/Jwxkkyq0Ts2oJ/c7aEDH3FAmb9Sdv9sPWDFpyqWPnNhxd58B3MCQzyAFRzNuoV2hyPi1od5wYmeBzMbMybpGSqzi4lv2+Gs/F8/6de9xIQ6Cmc1yxyc6haqcJqAGqaU0No9/9XzGAYP9o//3hOZjon+vsWPX1HC2bA9csNrfgXtjZWydZCOksZsHAGUc+CoHfqe3hlm3OUV3Ss8x0mtCdvaB4i7l9QMKbrz5UGOpwBUNvHz/C/XgyMdtTzVBfHa/Rc2ydzr8iEhT7ZrA835F2hoX+dl4Zu2LfR3dbH0V48s4qPFx5nAsJrK5jh3rf/GCqWXCtOIcfB1sH+cBZEn/uTKCc4+VBJzhpT06/9Md8jCWFZGiHwMypPotN78ZF+0SdHNjDnYxfyZkyOO0WU5aU45AjZVdYJPt+9z7druObqcakO82Bd74glIQp2'
-                        sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl'
-                        sh 'chmod +x ./kubectl'
-                        sh 'mv ./kubectl /usr/local/bin/kubectl'
-                        sh 'kubectl version --client'
-                        sh 'kubectl apply -f k8s-deployment.yaml'
+                        withAWS(roleAccount: '933594548532', role: 'DevOpsPHIntern') {
+                            sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl'
+                            sh 'chmod +x ./kubectl'
+                            sh 'mv ./kubectl /usr/local/bin/kubectl'
+                            sh 'kubectl apply -f k8s-deployment.yaml'
+                        }
+                        
                     }
                 }
             }

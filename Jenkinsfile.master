@@ -10,6 +10,15 @@ metadata:
     iam.amazonaws.com/role: arn:aws:iam::933594548532:role/DevOpsPHIntern
 spec:
   containers:
+  - name: python
+    image: python:3.10-alpine
+    volumeMounts:
+    - mountPath: "/var/jenkins_home/"
+      name: "jenkins"
+      readOnly: false
+    command:
+    - cat
+    tty: true
   - name: kubectl
     image: joshendriks/alpine-k8s
     command:
@@ -36,24 +45,32 @@ spec:
 
     stages {
 
-        stage('Create Jar File') {
-            steps {
-                withMaven(maven:'maven') {
-                    sh "mvn clean package"
-                }
-            }
-        }
+        // stage('Create Jar File') {
+        //     steps {
+        //         withMaven(maven:'maven') {
+        //             sh "mvn clean package"
+        //         }
+        //     }
+        // }
 
-        stage('Kaniko Build and Push Image') {
+        // stage('Kaniko Build and Push Image') {
+        //     steps {
+        //         container('kaniko') {
+        //             script {
+        //                 sh """
+        //                     /kaniko/executor --dockerfile `pwd`/Dockerfile \
+        //                      --context `pwd` \
+        //                      --destination=gelocasauay01/sample-java-jenkins:latest
+        //                 """
+        //             }
+        //         }
+        //     }
+        // }
+
+        stage('Prepare AWS CLI') {
             steps {
-                container('kaniko') {
-                    script {
-                        sh """
-                            /kaniko/executor --dockerfile `pwd`/Dockerfile \
-                             --context `pwd` \
-                             --destination=gelocasauay01/sample-java-jenkins:latest
-                        """
-                    }
+                container('python') {
+                    sh "pip3 install awscliv2 --upgrade";
                 }
             }
         }

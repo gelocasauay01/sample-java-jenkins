@@ -62,6 +62,7 @@ spec:
             steps {
                 container('kubectl') {
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                        sh 'apk update'
                         sh 'apk add aws-cli'
                         sh 'kubectl apply -f k8s-deployment.yaml'
                     }

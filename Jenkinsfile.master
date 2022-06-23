@@ -64,7 +64,7 @@ spec:
                     withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
                         sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl'
                         sh 'chmod +x ./kubectl'
-                        sh 'sudo mv ./kubectl /usr/local/bin/kubectl'
+                        sh 'mv ./kubectl /usr/local/bin/kubectl'
                         sh 'kubectl version --client'
                     }
                 }

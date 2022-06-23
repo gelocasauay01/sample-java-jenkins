@@ -41,7 +41,7 @@ spec:
                         sh """
                             /kaniko/executor --dockerfile `pwd`/Dockerfile \
                              --context `pwd` \
-                             --destination=gelocasauay/sample-java-jenkins:latest
+                             --destination=gelocasauay01/sample-java-jenkins:latest
                         """
                     }
                 }

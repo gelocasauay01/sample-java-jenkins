@@ -13,8 +13,8 @@ spec:
   - name: python
     image: python:3.10-alpine
     volumeMounts:
-    - mountPath: "/var/jenkins_home/"
-      name: "jenkins"
+    - mountPath: /var/jenkins_home/
+      name: jenkins
       readOnly: false
     command:
     - cat

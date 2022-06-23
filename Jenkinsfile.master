@@ -10,12 +10,8 @@ metadata:
     iam.amazonaws.com/role: arn:aws:iam::933594548532:role/DevOpsPHIntern
 spec:
   containers:
-  - name: python
-    image: python:3.10-alpine
-    volumeMounts:
-    - mountPath: /var/jenkins_home/
-      name: jenkins
-      readOnly: false
+  - name: aws
+    image: amazon/aws-cli:latest
     command:
     - cat
     tty: true
@@ -69,8 +65,10 @@ spec:
 
         stage('Prepare AWS CLI') {
             steps {
-                container('python') {
-                    sh "pip3 install awscliv2 --upgrade";
+                container('aws') {
+                    sh "aws configure set aws_access_key_id ASIA5SXUSJE2ESCY7PLT";
+                    sh "aws configure set aws_secret_key_id w2wWnb9x+gPj9LSjucv2pFrMhZX80SEJNhCX/g2w"
+                    sh "aws configure set aws_session_token IQoJb3JpZ2luX2VjEFEaCXVzLWVhc3QtMSJHMEUCIQDF6o16iHpXFkSA58zd6Mqt2vQ7Fl6Dd4zEF2jtGyFi6wIgQScq9r9oAAOUIkaMS5j4W3q1rPfZWB+nKGoNshq9qosqmgIIahAAGgw5MzM1OTQ1NDg1MzIiDI+U8KhyGEleEjIpDyr3AU6sJav+fm/p25varBRb6yTvCqkqF7jIExoXv/EsllMAurK+u3rpkXEEeqFMeeQ1KhdShnSMyUg0Sj9GrP0ztcAOf1WStWtokyoMyTutVr5/9qG7PX1/cqWDCVzXhHGgZzROOfUW6wqc6Ckl7N0zzzJhHmUm5x1QlEc+6R9NLGu3ivNHEA/8GYhFTd1LG6nCMInRSdTrO5b3u4OE06skQIsoJue0ZXq7RhCCmB+DogQC5q3KQoMP0sJpJ77UbCIZAZ1xULkboCVsCtpO+PVXsK/lPeTajIR7FMk4YHneJC9CvdxxK/TrCwXgMvTIECoY+ninVwpWkPkw0ejOlQY6nQF/DkSL2zo+8ZheysaR10YqHT8XrxgCWUxoSm6P7c/7qrVVFVVht66q920EY/1B7/n7uTnk+tisI/JFRdxt/r4IH+iIF9buQI+ttMEnDL8EKuOE6SesKJ6pV8jDIW/M5sZg0RKDZInkOrRI0Dtdq5/NRxTYRgfTLCemEBn9zF6YjRd82JQ0Vshqd0dpsnImvPIBzi79S3KLsAa7Qi/e"
                 }
             }
         }

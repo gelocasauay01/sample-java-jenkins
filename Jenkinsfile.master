@@ -5,7 +5,9 @@ pipeline {
 apiVersion: v1
 kind: Pod
 metadata:
-  name: kaniko
+  name: builder
+  annotations:
+    iam.amazonaws.com/role: arn:aws:iam::933594548532:role/DevOpsPHIntern
 spec:
   containers:
   - name: kubectl
@@ -51,6 +53,17 @@ spec:
                              --context `pwd` \
                              --destination=gelocasauay01/sample-java-jenkins:latest
                         """
+                    }
+                }
+            }
+        }
+
+        stage('Deploy App to Kubernetes') {     
+            steps {
+                container('kubectl') {
+                    withCredentials([file(credentialsId: 'kubeconfig', variable: 'KUBECONFIG')]) {
+                        sh 'sed -i "s/<TAG>/${BUILD_NUMBER}/" myweb.yaml'
+                        sh 'kubectl apply -f myweb.yaml'
                     }
                 }
             }

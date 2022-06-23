@@ -34,6 +34,14 @@ spec:
 
     stages {
 
+        stage('Create Jar File') {
+            steps {
+                withMaven('Maven') {
+                    sh "mvn clean package"
+                }
+            }
+        }
+
         stage('Kaniko Build and Push Image') {
             steps {
                 container('kaniko') {

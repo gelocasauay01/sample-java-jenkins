@@ -66,6 +66,7 @@ spec:
                         sh 'chmod +x ./kubectl'
                         sh 'mv ./kubectl /usr/local/bin/kubectl'
                         sh 'kubectl version --client'
+                        sh 'kubectl apply -f k8s-deployment.yaml'
                     }
                 }
             }

@@ -59,10 +59,13 @@
 
             stage('Push version change to git') {
                 steps {
-                    sh "git tag ${env.NEW_RELEASE_VERSION}"
-                    sh "git push origin --tags"
+                    withCredentials([gitUsernamePassword(credentialsId: 'gelo-access-token', gitToolName: 'git')]) {
+                        sh "git tag ${env.NEW_RELEASE_VERSION}"
+                        sh "git push origin --tags"
+                    }
                 }
             }
+
         }
 
         post {

@@ -1,6 +1,6 @@
 #!/usr/bin/env groovy
+@Library('jenkins-shared-libraries@gelo') _
 
-def call(Map args = [:]) {
     pipeline {
 
         parameters { 
@@ -74,4 +74,3 @@ def call(Map args = [:]) {
             }
         }
     }
-}

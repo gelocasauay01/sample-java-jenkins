@@ -1,8 +1,9 @@
+#!/usr/bin/env groovy
 @Library('jenkins-shared-libraries@gelo') _
 
 // pipelineTradingRelease();
 
-#!/usr/bin/env groovy
+
 pipeline {
 
     parameters { 

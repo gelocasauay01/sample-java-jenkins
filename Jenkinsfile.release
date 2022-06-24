@@ -48,6 +48,7 @@
                         script {
                             sh """
                                 /kaniko/executor --dockerfile ./Dockerfile \
+                                --context `pwd` \
                                 --destination=${params.PROJECT_DESTINATION}/${params.PROJECT_NAME}:${env.NEW_RELEASE_VERSION}-RELEASE
                             """
                         }

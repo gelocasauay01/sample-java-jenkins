@@ -1,3 +1,75 @@
 @Library('jenkins-shared-libraries@gelo') _
 
-pipelineTradingRelease();
+// pipelineTradingRelease();
+
+#!/usr/bin/env groovy
+pipeline {
+
+    parameters { 
+        choice(name: 'INCREMENT', choices: ['Patch', 'Minor', 'Major'], description: 'Increment version') 
+        text(name: 'PROJECT_DESTINATION', defaultValue: 'gelocasauay01', description: 'Enter repo URL or Dockerhub username')
+        text(name: 'PROJECT_NAME', defaultValue: 'sample-java-jenkins', description: 'Enter Project Name')
+    }
+
+    agent {
+        kubernetes { yaml pipelineGetAgent(kaniko_version: 'debug') }
+    }
+
+    stages {
+        stage ("Notify Current Build") {
+            steps {
+                script {
+                    env.AUTHOR_NAME=sh(script: "git show -s --pretty=%ae", returnStdout: true).trim()
+                }
+                moduleNotifyMattermost('Release', 0)
+            }
+        }
+            
+        stage('Calculate Version Number') {
+            steps {
+                script {
+                    withMaven(maven:'maven'){
+                        env.CURRENT_RELEASE_VERSION = sh(script: 'git tag', returnStdout: true).trim()
+                    }
+                    env.NEW_RELEASE_VERSION=moduleTradingIncrementVersion(increment:params.INCREMENT,relver:env.CURRENT_RELEASE_VERSION)
+                    env.IMAGE_VERSION=env.NEW_RELEASE_VERSION
+
+                }
+            }
+        }
+            
+        stage('Build, Test, Create & Upload Release Package') {
+            steps {
+
+                withMaven(maven:'maven') {
+                    sh "mvn versions:set -DnewVersion=${env.NEW_RELEASE_VERSION}"
+                    sh "mvn clean package"
+                }
+
+                docker.withRegistry('', 'docker-access-token') {
+                    def customImage = docker.build("my-image:${env.NEW_RELEASE_VERSION}")
+                    customImage.push("${env.NEW_RELEASE_VERSION}")
+                }
+                
+
+            }
+        }
+
+        stage('Push version change to git') {
+            steps {
+                sh "git tag ${env.NEW_RELEASE_VERSION}"
+                sh "git push origin --tags"
+            }
+        }
+    }
+
+    post {
+        success {
+            moduleNotifyMattermost('Release', 1)
+        }
+
+        failure {
+            moduleNotifyMattermost('Release', -1)
+        }
+    }
+}

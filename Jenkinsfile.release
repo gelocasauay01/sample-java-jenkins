@@ -47,12 +47,13 @@ pipeline {
                     sh "mvn clean package"
                 }
 
-                docker.withRegistry('', 'docker-access-token') {
-                    def customImage = docker.build("my-image:${env.NEW_RELEASE_VERSION}")
-                    customImage.push("${env.NEW_RELEASE_VERSION}")
+                script {
+                    docker.withRegistry('', 'docker-access-token') {
+                        def customImage = docker.build("my-image:${env.NEW_RELEASE_VERSION}")
+                        customImage.push("${env.NEW_RELEASE_VERSION}")
+                    }
                 }
                 
-
             }
         }
 

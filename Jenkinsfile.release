@@ -26,12 +26,10 @@
             stage('Calculate Version Number') {
                 steps {
                     script {
-                        withMaven(maven:'maven'){
-                            env.CURRENT_RELEASE_VERSION = sh(script: 'git tag', returnStdout: true).trim()
-                        }
+                        def tags = sh(script: 'git tag', returnStdout: true)?.trim()
+                        if(tags) env.CURRENT_RELEASE_VERSION = sh(script: 'git describe --tags --abbrev=0', returnStdout: true).trim()
+                        else env.CURRENT_RELEASE_VERSION = '0.0.0'
                         env.NEW_RELEASE_VERSION=moduleTradingIncrementVersion(increment:params.INCREMENT,relver:env.CURRENT_RELEASE_VERSION)
-                        sh "export IMAGE_VERSION=${env.NEW_RELEASE_VERSION}"
-
                     }
                 }
             }

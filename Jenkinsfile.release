@@ -12,10 +12,8 @@ pipeline {
         text(name: 'PROJECT_NAME', defaultValue: 'sample-java-jenkins', description: 'Enter Project Name')
     }
 
-    agent {
-        kubernetes { yaml pipelineGetAgent(kaniko_version: 'debug') }
-    }
-
+    agent any 
+    
     stages {
         stage ("Notify Current Build") {
             steps {

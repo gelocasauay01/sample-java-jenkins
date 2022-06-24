@@ -48,10 +48,12 @@ pipeline {
                 }
 
                 script {
-                    docker.withRegistry('', 'docker-access-token') {
-                        def customImage = docker.build("my-image:${env.NEW_RELEASE_VERSION}")
-                        customImage.push("${env.NEW_RELEASE_VERSION}")
-                    }
+                    docker.withTool('docker') {
+                        docker.withRegistry('', 'docker-access-token') {
+                            def customImage = docker.build("my-image:${env.NEW_RELEASE_VERSION}")
+                            customImage.push("${env.NEW_RELEASE_VERSION}")
+                        }
+                    }   
                 }
                 
             }

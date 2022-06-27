@@ -1,3 +1,3 @@
 @Library('jenkins-shared-libraries@gelo') _
 
-pipelineTradingMaster(buildLink: 'gelocasauay01/sample-java-jenkins');
+pipelineTradingMaster();

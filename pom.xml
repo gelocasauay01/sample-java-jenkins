@@ -9,8 +9,8 @@
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.sample</groupId>
-	<artifactId>project</artifactId>
-	<version>0.0.1-SNAPSHOT</version>
+	<artifactId>sample-java-jenkins</artifactId>
+	<version>0.0.0</version>
 	<name>project</name>
 	<description>Demo project for Spring Boot</description>
 	<properties>
@@ -89,6 +89,7 @@
 				<artifactId>spring-boot-maven-plugin</artifactId>
 			</plugin>
 		</plugins>
+		<finalName>sample-java-jenkins</finalName>
 	</build>
 
 </project>

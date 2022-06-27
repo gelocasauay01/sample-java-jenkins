@@ -1,4 +1,4 @@
 FROM openjdk:11
 EXPOSE 8080
-ADD target/project-0.0.1-SNAPSHOT.jar project-0.0.1-SNAPSHOT.jar 
-ENTRYPOINT [ "java", "-jar", "project-0.0.1-SNAPSHOT.jar"]
+ADD target/sample-java-jenkins.jar sample-java-jenkins.jar 
+ENTRYPOINT [ "java", "-jar", "sample-java-jenkins.jar"]

@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sample-java
-  namespace: dev-environment
+  namespace: default
 spec:
   replicas: 1
   selector:
@@ -33,7 +33,7 @@ apiVersion: v1
 kind: Service
 metadata:
   name: sample-java-service
-  namespace: dev-environment
+  namespace: default
 spec:
   selector:
     app: sample-java

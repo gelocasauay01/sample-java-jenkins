@@ -42,5 +42,4 @@ pipeline {
           moduleNotifyMattermost('Release-Deploy', 1)
       }
     }
-  }
 }

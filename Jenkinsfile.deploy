@@ -19,6 +19,7 @@ pipeline {
         steps {
             sh "export PROJECT_DESTINATION=${params.PROJECT_DESTINATION}"
             sh "export PROJECT_VERSION=${params.PROJECT_VERSION}"
+            sh 'apk add gettext'
             sh "envsubst < ./kubernetes/deployment.yaml"
         }
       }

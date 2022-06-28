@@ -2,7 +2,6 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: sample-java
-  namespace: default
 spec:
   replicas: 1
   selector:
@@ -15,7 +14,7 @@ spec:
     spec:
       containers:
         - name: sample-java
-          image: gelocasauay01/sample-java-jenkins:latest
+          image: ${PROJECT_DESTINATION}/${PROJECT_VERSION}
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

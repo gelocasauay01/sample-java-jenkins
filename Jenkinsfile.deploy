@@ -33,6 +33,12 @@
         }
       }
 
+      stage('Set Image Version') {
+        steps {
+          sh 'cat < ./kubernetes/deployment.yaml'
+        }
+      }
+
     //   stage('Deploy to Server') {
     //     steps {
     //         container('aws') {

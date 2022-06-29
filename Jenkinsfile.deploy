@@ -33,7 +33,7 @@
         }
       }
 
-      stage('Set Image Version') {
+      stage('Check ImageVersion') {
         steps {
           sh 'cat < ./kubernetes/deployment.yaml'
         }

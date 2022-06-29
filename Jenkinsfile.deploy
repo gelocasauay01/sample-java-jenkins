@@ -1,3 +1,63 @@
 @Library('jenkins-shared-libraries@gelo') _
 
-pipelineTradingDeploy()
+// pipelineTradingDeploy()
+
+  pipeline {
+    parameters {
+      choice(name: 'ENVIRONMENT', choices: ['default','qa','qatemp','uat','testnet','production'], description: 'Select Environment')
+      text(name: 'PROJECT_DESTINATION', description: 'Enter Registry URL or Dockerhub username')
+      text(name: 'PROJECT_VERSION', description: 'Enter Project Version')
+    }
+    agent {
+      kubernetes { yaml pipelineGetAgent(aws_version: 'latest', alpine_version: 'latest') }
+    }
+    stages {
+      stage('Notify Build') {
+          steps {
+            moduleNotifyMattermost('Release-Deploy', 0)
+          }
+      }
+
+      stage('Set Image Version') {
+        steps {
+          container('alpine') {
+            sh "export PROJECT_VERSION=$params.PROJECT_VERSION"
+            sh '''
+              apk --no-cache add \
+              icu-dev \
+              gettext \
+              gettext-dev
+            '''
+            sh 'envsubst < ./kubernetes/deployment.yaml'  
+          }
+        }
+      }
+
+      stage('Retrieve to Distribution Package') {
+        steps {
+          sh 'cat < ./kubernetes/deployment.yaml'
+        }
+      }
+
+      stage('Deploy to Server') {
+        steps {
+            container('aws') {
+            sh "aws eks --region us-east-1 update-kubeconfig --name devopsx-eks"
+            sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl'
+            sh 'chmod +x ./kubectl'
+            sh 'mv ./kubectl /usr/local/bin/kubectl'
+            sh "kubectl apply -f ./kubernetes --namespace=${params.ENVIRONMENT}"
+          }
+        }
+      }
+
+    }
+    post {
+      failure {
+          moduleNotifyMattermost('Release-Deploy', -1)
+      }
+      success {
+          moduleNotifyMattermost('Release-Deploy', 1)
+      }
+    }
+  }

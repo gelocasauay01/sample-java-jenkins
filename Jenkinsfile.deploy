@@ -28,18 +28,19 @@
 
       stage('Set Image Version') {
         steps {
-            sh "echo '
-            apiVersion: kustomize.config.k8s.io/v1beta1
-            kind: Kustomization
+            sh """
+            echo '
+                apiVersion: kustomize.config.k8s.io/v1beta1
+                kind: Kustomization
 
-            resources:
-            - deployment.yaml
+                resources:
+                - deployment.yaml
 
-            images:
-            - name: $
-                newTag: $params.PROJECT_DESTINATION/$env.PROJECT_NAME:$params.PROJECT_VERSION
-            ' > kuztomization.yaml
-            "
+                images:
+                - name: $
+                    newTag: $params.PROJECT_DESTINATION/$env.PROJECT_NAME:$params.PROJECT_VERSION
+                ' > kuztomization.yaml
+            """
         }
       }
 

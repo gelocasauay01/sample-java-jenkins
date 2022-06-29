@@ -28,7 +28,7 @@
 
       stage('Set Image Version') {
         steps {
-            sh "cd kubernetes"
+            sh "cd ./kubernetes"
             sh "echo 'apiVersion: kustomize.config.k8s.io/v1beta1\nkind: Kustomization\nresources:\n  - deployment.yaml\nimages:\n  - name: $env.PROJECT_NAME\n    newTag: $params.PROJECT_DESTINATION/$env.PROJECT_NAME:$params.PROJECT_VERSION' > kuztomization.yaml"
             sh "ls"
         }

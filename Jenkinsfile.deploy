@@ -32,12 +32,6 @@
         }
       }
 
-      stage('Check ImageVersion') {
-        steps {
-          
-        }
-      }
-
     //   stage('Deploy to Server') {
     //     steps {
     //         container('aws') {

@@ -18,24 +18,34 @@
           }
       }
 
+      stage('Get Application Name'){
+        steps {
+            script {
+                env.PROJECT_NAME=sh(script:'git config --get remote.origin.url', returnStdout: true).trim().split("/").last()
+            }
+        }
+      }
+
       stage('Set Image Version') {
         steps {
-          container('alpine') {
-            sh "export PROJECT_VERSION=$params.PROJECT_VERSION"
-            sh '''
-              apk --no-cache add \
-              icu-dev \
-              gettext \
-              gettext-dev
-            '''
-            sh 'envsubst < ./kubernetes/deployment.yaml'  
-          }
+            sh "echo '''
+            apiVersion: kustomize.config.k8s.io/v1beta1
+            kind: Kustomization
+
+            resources:
+            - deployment.yaml
+
+            images:
+            - name: $
+                newTag: $params.PROJECT_DESTINATION/$env.PROJECT_NAME:$params.PROJECT_VERSION
+            ''' > kuztomization.yaml
+            "
         }
       }
 
       stage('Check ImageVersion') {
         steps {
-          sh 'cat < ./kubernetes/deployment.yaml'
+          
         }
       }
 

@@ -33,12 +33,6 @@
         }
       }
 
-      stage('Retrieve to Distribution Package') {
-        steps {
-          sh 'cat < ./kubernetes/deployment.yaml'
-        }
-      }
-
     //   stage('Deploy to Server') {
     //     steps {
     //         container('aws') {

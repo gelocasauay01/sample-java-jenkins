@@ -28,23 +28,22 @@
 
       stage('Set Image Version') {
         steps {
-            sh "cd ./kubernetes"
             sh "echo 'apiVersion: kustomize.config.k8s.io/v1beta1\nkind: Kustomization\nresources:\n  - deployment.yaml\nimages:\n  - name: $env.PROJECT_NAME\n    newTag: $params.PROJECT_DESTINATION/$env.PROJECT_NAME:$params.PROJECT_VERSION' > ./kubernetes/kuztomization.yaml"
-            sh "ls"
         }
       }
 
-    //   stage('Deploy to Server') {
-    //     steps {
-    //         container('aws') {
-    //         sh "aws eks --region us-east-1 update-kubeconfig --name devopsx-eks"
-    //         sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl'
-    //         sh 'chmod +x ./kubectl'
-    //         sh 'mv ./kubectl /usr/local/bin/kubectl'
-    //         sh "kubectl apply -f ./kubernetes --namespace=${params.ENVIRONMENT}"
-    //       }
-    //     }
-    //   }
+    stage('Deploy to Server') {
+        steps {
+            container('aws') {
+                sh 'ls ./kubernetes'
+                // sh "aws eks --region us-east-1 update-kubeconfig --name devopsx-eks"
+                // sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl'
+                // sh 'chmod +x ./kubectl'
+                // sh 'mv ./kubectl /usr/local/bin/kubectl'
+                // sh "kubectl apply -f ./kubernetes --namespace=${params.ENVIRONMENT}"
+            }
+        }
+    }
 
     }
     post {

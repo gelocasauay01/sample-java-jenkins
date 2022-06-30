@@ -13,7 +13,7 @@ spec:
         app: sample-java-jenkins
     spec:
       containers:
-        - name: sample-java
+        - name: sample-java-jenkins
           image: gelocasauay01/sample-java-jenkins:latest
           imagePullPolicy: Always
           ports:

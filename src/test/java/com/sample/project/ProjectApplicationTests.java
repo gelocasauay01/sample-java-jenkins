@@ -10,15 +10,11 @@ import org.springframework.web.client.RestTemplate;
 class ProjectApplicationTests {
 
 	@Test
-	void contextLoads() {
-	}
-
-	@Test
-	public void testAPI(){
+	void testAPI(){
 		String url = "http://localhost:3000/";
 		RestTemplate restTemplate = new RestTemplate();
 		String response = restTemplate.getForObject(url, String.class);
-		assertEquals(response, "Hello World");
+		assertEquals("Hello World", response);
 	}
 
 }

@@ -8,7 +8,7 @@ ascascascascas
 sacascascascascascsa
 asdasdasdasdasdfsdf
 ascascascascascacsvsdv
-sddfsdfsdfas as ;mas ;sam ;msa; msa;  sd, dsk asdasdmaskldmasl
+sddfsdfsdfas as ;mas ;sam ;msa; msa; 
 asasdasdasdasacsacascascsa
 saascasascadcdcdc
 sxascsaecodijcijcioqwjcejcasaskcsaklcmaslk as as sa

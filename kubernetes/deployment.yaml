@@ -1,20 +1,19 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: sample-java
-  namespace: default
+  name: sample-java-jenkins
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: sample-java
+      app: sample-java-jenkins
   template:
     metadata:
       labels:
-        app: sample-java
+        app: sample-java-jenkins
     spec:
       containers:
-        - name: sample-java
+        - name: sample-java-jenkins
           image: gelocasauay01/sample-java-jenkins:latest
           imagePullPolicy: Always
           ports:
@@ -32,11 +31,11 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  name: sample-java-service
+  name: sample-java-jenkins-service
   namespace: default
 spec:
   selector:
-    app: sample-java
+    app: sample-java-jenkins
   ports:
   - port: 80
     targetPort: 8080

@@ -7,7 +7,6 @@ ascascas
 ascascascascas
 sacascascascascascsa
 asdasdasdasdasdfsdf
-ascascascascascacsvsdvd nkjndkj 
 sddfsdfsdfas as ;mas ;sam ;msa; msa; 
 asasdasdasdasacsacascascsa
 saascasascadcdcdc

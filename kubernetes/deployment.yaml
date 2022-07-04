@@ -14,7 +14,7 @@ spec:
     spec:
       containers:
         - name: sample-java-jenkins
-          image: gelocasauay01/sample-java-jenkins:latest
+          image: sample-java-jenkins
           imagePullPolicy: Always
           ports:
             - containerPort: 8080

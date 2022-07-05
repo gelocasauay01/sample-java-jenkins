@@ -11,6 +11,9 @@ pipeline {
             steps {
                 container('devops-cli') {
                     sh "ls"
+                    sh "cd .."
+                    sh "ls"
+                    sh "cd .."
                 }
             }
         }

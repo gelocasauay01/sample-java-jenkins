@@ -1,6 +1,7 @@
 @Library('jenkins-shared-libraries@gelo') _
 
 pipeline {
+    
     agent {
       kubernetes { yaml pipelineGetAgent(devopscli_version: 'latest') }
     }

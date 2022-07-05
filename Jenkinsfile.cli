@@ -2,7 +2,7 @@
 
 pipeline {
     agent {
-      kubernetes { yaml pipelineGetAgent(devops-cli_version: 'latest') }
+      kubernetes { yaml pipelineGetAgent(devopscli_version: 'latest') }
     }
 
     stages{

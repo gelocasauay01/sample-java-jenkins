@@ -1,4 +1,4 @@
-@Libraries('jenkins-shared-libraries@gelo') _
+@Library('jenkins-shared-libraries@gelo') _
 
 pipeline {
     agent {

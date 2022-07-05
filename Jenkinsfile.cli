@@ -10,8 +10,7 @@ pipeline {
         stage('Test Container') {
             steps {
                 container('devops-cli') {
-                    sh "python3 main.py init"
-                    sh "python3 main.py assume"
+                    sh "ls"
                 }
             }
         }

@@ -11,6 +11,7 @@ pipeline {
             steps {
                 container('devopscli') {
                     sh "aws sts get-caller-identity"
+                    sh "python --version"
                 }
             }
         }

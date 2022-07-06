@@ -16,6 +16,7 @@ pipeline {
                         sh 'chmod +x ./kubectl'
                         sh 'mv ./kubectl /usr/local/bin/kubectl'
                         sh 'kubectl cluster-info'
+                        sh 'kubectl get deploy'
                     }   
                 }
             }

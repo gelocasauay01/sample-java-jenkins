@@ -3,21 +3,14 @@
 pipeline {
     
     agent {
-      kubernetes { yaml pipelineGetAgent(aws_version: 'latest') }
+      kubernetes { yaml pipelineGetAgent(devopscli_version: 'latest') }
     }
 
     stages{
         stage('Test Container') {
             steps {
-                container('aws') {
-                    withAWS(roleAccount:'170785246738', role:'OrganizationAccountAccessRole') {
-                        sh "aws eks --region us-east-1 update-kubeconfig --name prod-cluster"
-                        sh 'curl -LO https://storage.googleapis.com/kubernetes-release/release/v1.18.0/bin/linux/amd64/kubectl'
-                        sh 'chmod +x ./kubectl'
-                        sh 'mv ./kubectl /usr/local/bin/kubectl'
-                        sh 'kubectl cluster-info'
-                        sh 'kubectl get deploy'
-                    }   
+                container('devops-cli') {
+                    sh "aws sts get-caller-identity"
                 }
             }
         }

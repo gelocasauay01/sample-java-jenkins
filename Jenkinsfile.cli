@@ -10,10 +10,10 @@ pipeline {
         stage('Test Container') {
             steps {
                 container('devopscli') {
-                    sh "aws sts get-caller-identity"
                     sh "python --version"
                     sh "git clone https://github.com/gelocasauay01/devopscli"
-                    sh "python ./devopscli/main.py test"
+                    sh "python ./devopscli/main.py assume prod"
+                    sh "aws sts get-caller-identity"
                 }
             }
         }

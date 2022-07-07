@@ -10,7 +10,7 @@ pipeline {
         stage('Test Container') {
             steps {
                 container('devopscli') {
-                    sh "ls /usr/local/bin"
+                    sh "ls /usr/local/bin/devopscli"
                     sh "aws sts get-caller-identity"
                 }
             }

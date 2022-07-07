@@ -10,16 +10,8 @@ pipeline {
         stage('Test Container') {
             steps {
                 container('devopscli') {
-                    sh "apk add git"
-                    sh "git clone https://github.com/gelocasauay01/devopscli"
-                    sh """
-                        pyinstaller ./devopscli/main.py \
-                            -n devopscli \
-                            --distpath /usr/bin/devopscli \
-                            --onedir
-                    """
-                    sh "ls"
-                    sh "echo `pwd`"
+                    sh "devopscli assume prod"
+                    sh "aws sts get-caller-identity"
                 }
             }
         }

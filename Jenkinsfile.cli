@@ -10,6 +10,7 @@ pipeline {
         stage('Test Container') {
             steps {
                 container('devopscli') {
+                    sh "devopscli version"
                     sh "devopscli assume prod"
                     sh "aws sts get-caller-identity"
                 }

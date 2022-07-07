@@ -3,13 +3,13 @@
 pipeline {
     
     agent {
-      kubernetes { yaml pipelineGetAgent(alpine_version: 'latest') }
+      kubernetes { yaml pipelineGetAgent(devopscli_version: 'latest') }
     }
 
     stages{
         stage('Test Container') {
             steps {
-                container('alpine') {
+                container('devopscli') {
                     sh "aws sts get-caller-identity"
                     sh "python --version"
                     sh "main.py"

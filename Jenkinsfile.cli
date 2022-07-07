@@ -12,7 +12,7 @@ pipeline {
                 container('devopscli') {
                     sh "aws sts get-caller-identity"
                     sh "python --version"
-                    sh "main.py"
+                    sh "./main.py"
                 }
             }
         }

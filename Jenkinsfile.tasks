@@ -1,3 +1,3 @@
-@Library('jenkins-shared-libraries@gelo') _
+@Library('jenkins-shared-libraries@features') _
 
 pipelineMSTasks()
